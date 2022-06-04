@@ -3,12 +3,12 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 ''' API level imports '''
-import middleware
-import utils
-from settings import ENV, Env
+import API.middleware as middleware
+import API.utils as utils
+from API.settings import ENV, Env
 
 ''' APP level imports '''
-from Menu import API as menu
+from API.menu.router import API as menu
 
 def configure(app:FastAPI, log: Logger, settings:Env = Depends(ENV.values)):
     ''' 

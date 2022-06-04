@@ -1,5 +1,8 @@
 from pydantic import BaseSettings
 from functools import lru_cache
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 class Env(BaseSettings):
 
@@ -10,7 +13,7 @@ class Env(BaseSettings):
     SQL_CONNECTION_STRING: str
 
     class Config:
-        env_file = ".env"
+        env_file = BASE_DIR / ".env"
 
 class ENV:
     @lru_cache
