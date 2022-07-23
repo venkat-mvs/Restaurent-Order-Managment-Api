@@ -23,11 +23,13 @@ def main(settings:Env):
                 prefix="/api"
         ) 
     
+    logger.setLevel(logging.DEBUG)
+
+    logger.info("Ensuring DB tables")
     models.Base.metadata.create_all(bind=engine)
+    logger.info("Ensuring DB tables...done")
 
     #print(logging.root.manager.loggerDict)
-
-    logger.setLevel(logging.DEBUG)
     
     logger.info("Configuring Server...")
         

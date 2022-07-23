@@ -9,6 +9,10 @@ from API.settings import ENV, Env
 
 ''' APP level imports '''
 from API.menu.router import API as menu
+from API.biller.routers import API as biller
+from API.order_placement.routers import API as order
+from API.table.routers import API as tables
+from API.customer.router import API as customer
 
 def configure(app:FastAPI, log: Logger, settings:Env = Depends(ENV.values)):
     ''' 
@@ -40,10 +44,18 @@ def configure(app:FastAPI, log: Logger, settings:Env = Depends(ENV.values)):
 
         utils.add_exception_handlers(app, log=log)
 
-        menu_api = menu(log)
-        log.info(f"Adding {menu.__name__} Routers... ")
-        app.include_router(menu_api)
-        log.info(f"Adding {menu.__name__} Routers...done")
+        menu_routes = menu(log)
+        biller_routes = biller(log)
+        order_routes = order(log)
+        table_routes = tables(log)
+        customer_routes = customer(log)
+
+        app.include_router(menu_routes)
+        app.include_router(biller_routes)
+        app.include_router(order_routes)
+        app.include_router(table_routes)
+        app.include_router(customer_routes)
+        log.info(f"Adding Routers...done")
 
 
 
